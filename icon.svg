@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="22" fill="#1b2338"/>
+  <line x1="18" y1="50" x2="82" y2="50" stroke="#c08a3e" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="30" cy="50" r="8" fill="#3f7d8c"/>
+  <circle cx="70" cy="50" r="8" fill="#b5533b"/>
+  <polygon points="30,30 24,40 36,40" fill="#3f7d8c"/>
+  <polygon points="70,70 64,60 76,60" fill="#b5533b"/>
+  <text x="50" y="24" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="15" font-weight="800" fill="#e0b45c" text-anchor="middle">BTV</text>
+</svg>

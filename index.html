@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b2338">
+<title>EARLIER or LATER: BTV — a Btown Games production</title>
+<meta name="description" content="Two moments from Burlington & Vermont history. Which came first? Build a streak through 400 years of local lore — every card teaches you something.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="EARLIER or LATER: BTV">
+<meta property="og:description" content="Two moments from Burlington & Vermont history — which came first? Build a streak through 400 years of local lore.">
+<meta property="og:url" content="https://btownbrief.github.io/earlier-or-later/">
+<meta property="og:image" content="https://btownbrief.github.io/earlier-or-later/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EARLIER or LATER: BTV">
+<meta name="twitter:description" content="Which Burlington moment came first? Build a streak through 400 years of local history.">
+<meta name="twitter:image" content="https://btownbrief.github.io/earlier-or-later/og-image.png">
+
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Earlier or Later">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="brand">EARLIER<span class="tb-or">or</span>LATER<span class="btv">: BTV</span></div>
+  <div class="scores">
+    <div class="badge"><small>Streak</small><b id="streak">0</b></div>
+    <div class="badge"><small>Best</small><b id="best">0</b></div>
+  </div>
+</header>
+
+<!-- Start screen -->
+<section id="intro" class="screen">
+  <h1 class="big-title">EARLIER<br><span class="accent">or LATER</span></h1>
+  <p class="sub">FOUR CENTURIES OF BURLINGTON</p>
+  <p class="deck">One moment from local history, its date on the placard.<br>
+  Another with the date hidden. Did it happen <b class="hi">◀ EARLIER</b> or <b class="lo">LATER ▶</b>?</p>
+  <p class="deck small">Champlain to Phish · statehood to snowstorms · every card sourced &amp; dated.</p>
+  <button class="btn-lead" id="startBtn">START THE STREAK</button>
+  <p class="fineprint" id="pool-flex"></p>
+</section>
+
+<!-- Game screen -->
+<section id="game" class="screen hidden">
+  <div id="cards">
+    <!-- Known anchor -->
+    <div class="card known" id="cardA">
+      <div class="card-era" id="eraA"></div>
+      <div class="card-event" id="eventA"></div>
+      <div class="card-blurb" id="blurbA"></div>
+    </div>
+
+    <div id="link">
+      <span class="link-line"></span>
+      <span class="link-badge">vs</span>
+      <span class="link-line"></span>
+    </div>
+
+    <!-- Mystery challenger -->
+    <div class="card mystery" id="cardB">
+      <div class="card-era" id="eraB">????</div>
+      <div class="card-event" id="eventB"></div>
+      <div class="card-blurb hidden" id="blurbB"></div>
+      <div class="prompt" id="prompt">Did this happen…</div>
+      <div id="guessRow">
+        <button class="btn-guess hi" id="earlierBtn">◀ EARLIER</button>
+        <button class="btn-guess lo" id="laterBtn">LATER ▶</button>
+      </div>
+      <div id="verdict" class="hidden"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Game over -->
+<section id="gameover" class="screen hidden">
+  <h2 id="overTitle">STREAK OVER</h2>
+  <div class="score-big" id="finalStreak">0</div>
+  <div class="best-line" id="bestLine"></div>
+  <div id="finalSources" class="sources"></div>
+  <div class="row">
+    <button class="btn-lead" id="restartBtn">RUN IT BACK</button>
+    <button class="btn-ghost" id="shareBtn">📤 SHARE</button>
+  </div>
+
+  <div class="lb hidden" id="lb">
+    <div class="lb-tabs">
+      <button class="chip sel" id="lbThisBtn">🏆 This Month</button>
+      <button class="chip" id="lbLastBtn">Last Month</button>
+    </div>
+    <div class="lb-status" id="lbStatus"></div>
+    <ol id="lbList"></ol>
+    <div class="lb-form hidden" id="lbForm">
+      <input id="lbNameInput" maxlength="20" placeholder="Your name" autocomplete="off">
+      <button class="chip" id="lbSaveBtn">Save</button>
+    </div>
+    <button class="chip lb-rename" id="lbRenameBtn">✏️ Change name</button>
+  </div>
+
+  <a class="cta-brief" href="https://www.btownbrief.com/" target="_blank" rel="noopener">📰 Read the latest Btown Brief →</a>
+</section>
+
+<footer id="footer">A Btown Games production · <a href="https://www.btownbrief.com/" target="_blank" rel="noopener">Read the Btown Brief →</a></footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

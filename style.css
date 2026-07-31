@@ -40,6 +40,17 @@ button { font: inherit; cursor: pointer; border: none; }
 }
 .badge small { display: block; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.65; }
 .badge b { font-size: 18px; font-weight: 900; color: var(--gold); }
+.streak-flame { display: inline-block; width: 1em; }
+.badge.streak-hot {
+  border-color: rgba(224,180,92,0.7);
+  box-shadow: 0 0 14px rgba(192,138,62,0.28);
+}
+.badge.streak-hot small { opacity: 1; }
+.badge.streak-hot b { color: #ffd076; }
+.badge.streak-tick b { animation: streakTick 0.24s ease; }
+@keyframes streakTick {
+  50% { transform: scale(1.28); }
+}
 
 /* ---------- screens ---------- */
 .screen { width: min(560px, 100%); display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -72,8 +83,8 @@ button { font: inherit; cursor: pointer; border: none; }
   width: 100%; background: var(--card); color: var(--ink);
   border-radius: 16px; padding: 20px 20px 18px;
   box-shadow: 0 10px 28px rgba(0,0,0,0.4);
-  border: 1px solid rgba(38,33,26,0.15);
-  transition: box-shadow 0.25s ease;
+  border: 1px solid rgba(38,33,26,0.15); transform-origin: center;
+  transition: box-shadow 0.25s ease, opacity 0.25s ease;
   position: relative;
 }
 /* engraved brass frame line, like a museum placard */
@@ -86,10 +97,11 @@ button { font: inherit; cursor: pointer; border: none; }
   font-size: clamp(40px, 11vw, 60px); font-weight: 800; line-height: 1;
   color: var(--accent); letter-spacing: 1px; font-variant-numeric: tabular-nums;
 }
-.card-era.flip { animation: flip 0.5s cubic-bezier(.2,.8,.2,1); }
-@keyframes flip {
-  0% { transform: rotateX(90deg); opacity: 0; }
-  100% { transform: rotateX(0); opacity: 1; }
+.card-era.slotting { animation: slotTension 0.65s ease-out; }
+@keyframes slotTension {
+  0% { transform: translateY(-3px); opacity: 0.58; }
+  75% { transform: translateY(1px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 .card-event {
   margin-top: 8px; font-size: clamp(17px, 4.6vw, 20px); font-weight: 800;
@@ -103,6 +115,25 @@ button { font: inherit; cursor: pointer; border: none; }
 .card.reveal-good { box-shadow: 0 0 0 4px var(--hi), 0 10px 28px rgba(0,0,0,0.4); }
 .card.reveal-bad { box-shadow: 0 0 0 4px var(--lo), 0 10px 28px rgba(0,0,0,0.4); }
 .card.reveal-good .card-era, .card.reveal-bad .card-era { color: var(--ink); }
+.card.handoff-out { animation: handoffOut 0.42s ease-in forwards; }
+.card.handoff-in {
+  z-index: 4;
+  animation: handoffIn 0.42s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.card.deal-in { animation: dealIn 0.34s cubic-bezier(0.2, 0.9, 0.25, 1); }
+@keyframes handoffOut {
+  to { opacity: 0; transform: scale(0.96); }
+}
+@keyframes handoffIn {
+  to {
+    transform: translate(var(--handoff-x), var(--handoff-y)) scale(0.98);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.5);
+  }
+}
+@keyframes dealIn {
+  from { opacity: 0; transform: translateY(-18px) rotate(1deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
 
 /* ---------- timeline connector ---------- */
 #link {
@@ -117,6 +148,14 @@ button { font: inherit; cursor: pointer; border: none; }
   font-style: italic; letter-spacing: 0.5px;
   border: 4px solid var(--bg); box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
+#link.drawing .link-line:last-child {
+  transform-origin: top;
+  animation: drawTimelineDown 0.38s ease-out;
+}
+@keyframes drawTimelineDown {
+  from { transform: scaleY(0); opacity: 0.2; }
+  to { transform: scaleY(1); opacity: 1; }
+}
 
 .prompt { margin-top: 14px; font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #7a6f59; }
 #guessRow { display: flex; gap: 10px; margin-top: 10px; }
@@ -129,9 +168,33 @@ button { font: inherit; cursor: pointer; border: none; }
 .btn-guess.hi { background: linear-gradient(#4e93a3, var(--hi)); box-shadow: 0 4px 0 #2c5a66; }
 .btn-guess.lo { background: linear-gradient(#c56245, var(--lo)); box-shadow: 0 4px 0 #7f3826; }
 
-#verdict { margin-top: 14px; font-size: 19px; font-weight: 900; letter-spacing: 0.5px; }
+#revealStatus { margin-top: 14px; }
+#verdict { font-size: 19px; font-weight: 900; letter-spacing: 0.5px; }
 #verdict.good { color: var(--hi); }
 #verdict.bad { color: var(--lo); }
+#gapNote { margin-top: 5px; color: #655a47; font-size: 13px; font-weight: 800; }
+
+.milestone-pop {
+  position: fixed; z-index: 10; left: 50%; top: 42%;
+  width: min(420px, calc(100vw - 32px)); padding: 18px 24px;
+  border: 2px solid var(--gold); border-radius: 20px;
+  background: rgba(16,22,42,0.96); color: var(--card);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.5), 0 0 30px rgba(192,138,62,0.32);
+  pointer-events: none;
+}
+.milestone-pop small {
+  display: block; color: var(--gold); font-size: 13px; font-weight: 900;
+  letter-spacing: 2px;
+}
+.milestone-pop strong {
+  display: block; margin-top: 3px; font-size: clamp(34px, 11vw, 56px);
+  font-weight: 900; line-height: 1;
+}
+.milestone-pop.show { animation: milestonePunch 0.55s cubic-bezier(0.2, 1.35, 0.35, 1) both; }
+@keyframes milestonePunch {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
 
 /* ---------- game over ---------- */
 #gameover h2 { margin-top: 5vh; font-size: clamp(28px, 8vw, 44px); font-weight: 900; letter-spacing: -1px; }
@@ -196,4 +259,25 @@ button { font: inherit; cursor: pointer; border: none; }
   .card { width: calc(50% - 24px); display: flex; flex-direction: column; }
   #link { flex-direction: row; margin: auto -14px; align-self: center; }
   #link .link-line { width: 14px; height: 2px; }
+  #link.drawing .link-line:last-child {
+    transform-origin: left;
+    animation-name: drawTimelineAcross;
+  }
+  @keyframes drawTimelineAcross {
+    from { transform: scaleX(0); opacity: 0.2; }
+    to { transform: scaleX(1); opacity: 1; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .btn-lead, .btn-guess { transition: none; }
+  .card-era.slotting, .card.handoff-out, .card.handoff-in, .card.deal-in,
+  #link.drawing .link-line:last-child, .badge.streak-tick b {
+    animation: none;
+  }
+  .milestone-pop.show {
+    animation: none;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }

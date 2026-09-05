@@ -1,0 +1,22 @@
+{
+  "name": "Earlier or Later",
+  "short_name": "Earlier or Later",
+  "description": "Earlier or Later. A Btown Games production.",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1b2338",
+  "theme_color": "#1b2338",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
